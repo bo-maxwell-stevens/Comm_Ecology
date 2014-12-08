@@ -1,0 +1,75 @@
+---
+title: "Co-occurrence analysis"
+output: html_document
+---
+
+Today we are going to use several indices and several types of permutation null models to test for patterns of co-occurrence in herbaceous plant community composition, using plot-based data from a California grassland
+
+```{r}
+commDat=read.csv("U:/LOCKED/grassland_data/community_comp.csv",row.names=1)
+commDat[commDat>0]=1#converting it to a binary presence/absence dataset
+```
+
+The {vegan} library has an existing function for the Checkerboard score (C-score) of Stone and Roberts (1980) that Gotelli (2000) recommends.
+
+```{r}
+library(vegan)
+Cscore.obs=nestedchecker(commDat)
+Cscore.obs
+```
+
+Neither of these values is super useful on its own.  C score is the number of checkerboard units (2x2 submatrices where both species occur once but in different plots), where checkerboards may indicate competitive exclusion. V ratio is the ratio of the variance in total species number in plots to the sum of the variances of the species (low variance in species richness across plots may be indicative of competition constraining the number of species in a community).  What we need to ask is whether these values are significantly different than expected if species occurred in some random way across communities.
+
+Based on the recommendation of Gotelli (2000), we will use the "independent swap" algorithm (SIM9), which maintains observed species occurrence frequencies and species richness distributions across communities, for assessing our C-score.  This is a rather conservative null model, i.e. it may be prone to TypeII error (not rejecting the null hypothesis when it is indeed incorrect), but is much less prone to TypeI error than other algorithms.  As noted by Gotelli, this algorithm cannot be applied for the V ratio.
+
+```{r}
+Cscore.mod=oecosimu(commDat,nestedchecker,method="swap",nsimul=1000)#"swap" is equivalent to Gotelli's SIM9
+Cscore.mod
+```
+
+If we look at the bottom row of statistics, we see that the z-value is positive, indicating that the observed C score is greater than the null expectation (z-score = [obs - mean(null)]/sd(null)).  The mean, lower tail, median, and upper tail of the null distribution are given, and the probability that the observed C-score lies within the null distribution.  We can visualize this if we want by plotting a histogram of the null distribution.
+
+```{r}
+hist(Cscore.mod$oecosimu$simulated)
+lines(c(Cscore.obs$statistic,Cscore.obs$statistic),c(-10,100),col="blue")
+```
+
+The blue line is the observed value.  Note that it is much higher than the majority of the null distribution.  What is the interpretation of this result (hint: look at table 1 in Gotelli (2000) if you can't figure it out)?
+
+
+How about V ratio?  There is no function in {vegan} for calculating this index, but SIM2 in Gotelli (2000), which is nearly as applicable good as SIM9 in minimizing TypeI error and may be better for plot-based data than the "independent swap" algorithm (SIM9) is available in the oecosimu() function we just used.  In order to take advantage of the latter, we need to create a V-ratio function.
+
+```{r}
+Vratio=function(x){
+  return(var(rowSums(x))/sum(apply(x,2,sd)))#read as "variance (var) in species richness across plots (rowSums(x)), divided by the sum (sum) of the variances in species occurrence frequencies (apply(x,2,sd))"
+}
+Vratio.mod=oecosimu(commDat,Vratio,method="r0",nsimul=1000)#r1=SIM2 in Gotelli(2000)
+Vratio.mod
+```
+
+Here, the observed occurrence frequency of each species is maintained, but they are assigned to all plots with equal probabilities. We get a result similar to that of the C score analysis with the independent swap algorithm.  The observed statistic is greater than the null distribution of statistics with P<0.001.  We can visualize this result just like the last one.
+
+```{r}
+hist(Vratio.mod$oecosimu$simulated,xlim=c(0.555,0.75))
+lines(c(Vratio.mod$statistic,Vratio.mod$statistic),c(-10,100),col="blue")#whoa!
+```
+
+What is the interpretation of this result?  How does it differ from the one above for C score and the independent swap result?
+
+
+What if we use the SIM2 algorithm with the C score?  Will the result be qualitatively different from the independent swap result?
+
+```{r}
+Cscore.mod4=oecosimu(commDat,nestedchecker,method="r0",nsimul=1000)
+Cscore.mod4
+```
+
+Whoa!  A big change in the result.  This time the z score is negative, and we can see that the observed C score is much lower than the distribution of null model values:
+
+```{r}
+hist(Cscore.mod4$oecosimu$simulated,xlim=c(37200,90500))
+lines(c(Cscore.mod4$statistic,Cscore.mod4$statistic),c(-10,100),col="blue")
+```
+
+This is very different from the result we get using the same index (C score) but a different null model algorithm (independent swap).  Why do the different null models produce such different results, and what can this difference tell us ecologically?
+(hint: look at the last paragraph on page 2617 of Gotelli (2000).  Under what conditions is SIM2 most applicable?  Hint+: These community data were collected across an elevation gradient with substantial species turnover).

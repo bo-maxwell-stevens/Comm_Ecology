@@ -1,0 +1,65 @@
+---
+title: "Comparing Community Phylogenetic Structure to Null Models"
+output: html_document
+---
+
+We are going to compare the phylogenetic structure of our cushion plant communities to permutation null models in order to estimate whether certain communities are more or less related than expected, i.e. testing for environmental filtering.
+
+First let's read in our master phylogeny like last week.
+
+```{r}
+setwd('U:/LOCKED/phylo_data/')
+library(ape)
+globalTree=read.tree("bladj_dichotomous.tre")
+```
+
+We'll also read in our community dataset
+```{r}
+commDat=read.csv('U:/LOCKED/phylo_data/commSlovakia.csv')
+commDat[is.na(commDat)]=0#converting all of the empty cells, which are read in as NA, to zeros
+```
+
+Recall that this is on of ~80 community datasets that are represented by the species in our phylogeny.  Also recall that the community dataset is split up into paired cushion and open (bare ground) microsites.  Thus, there are several species pools from which we can randomly select species to generate a null expectation: the "global" pool from all ~80 communities, the "local" pool that includes all species in both the cushion and open microsites, and the "microsite" pools for cushion and open communities separately.
+
+First, let's prune our phylogeny to generate the local and microsite pools.
+
+```{r}
+library(picante)
+localTree=prune.sample(commDat[,-c(1:2)],globalTree)#this step prunes the tree by matching the tip labels of the master phylogeny to the column names in the dataset
+cushionComm=commDat[commDat$cushion.open=='cushion',-c(1:2)]
+cushionTree=prune.sample(cushionComm[,colSums(cushionComm)!=0],globalTree)#this prunes the tree to only those species found inside of cushions
+openComm=commDat[commDat$cushion.open=='open',-c(1:2)]
+openTree=prune.sample(openComm[,colSums(openComm)!=0],globalTree)#this prunes the tree to only those species found inside of cushions
+```
+
+Now that we have pruned our trees, we can compare the observed phylogenetic composition of our community (and sub-communities) to random draws of species from the different pools.
+
+We will use the ses.mpd function in picante, which compares the observed mean phylogenetic distance (MPD) within a community to 999 random draws (the default # of runs) using the independent swap algorithm.  Remember the indpendent swap from earlier in the semester?  It maintains the observed occurrence frequencies of species as well the observed sample species richness.
+
+```{r}
+MPD.global=ses.mpd(commDat[,-c(1:2)],cophenetic.phylo(globalTree),null.model=c("independentswap"),abundance.weighted=TRUE)
+MPD.local=ses.mpd(commDat[,-c(1:2)],cophenetic.phylo(localTree),null.model=c("independentswap"),abundance.weighted=TRUE)
+MPD.cushion=ses.mpd(cushionComm,cophenetic.phylo(cushionTree),null.model=c("independentswap"),abundance.weighted=TRUE)
+MPD.open=ses.mpd(openComm,cophenetic.phylo(openTree),null.model=c("independentswap"),abundance.weighted=TRUE)
+```
+
+What we have just done is similar to the analysis of Swenson et al. (2006) Ecology, where they compared the observed MPD to null expectations at different spatial scales.
+
+Let's take a look at how some of these patterns differ.  We'll focus on the Z-scores, i.e. the standardized effect sizes, as we have several times this semester.  Can you write out the equation for an SES?
+
+We'll convert these values to the net relatedness index (NRI=-SESmpd) for the sake of clarity; it's what Swenson et al. used.
+
+```{r}
+#cushion communities first
+NRI.cushion=cbind(as.data.frame(c(rep(1,nrow(cushionComm)),rep(2,nrow(cushionComm)),rep(3,nrow(cushionComm)))),c(-MPD.global$mpd.obs.z[commDat$cushion.open=='cushion'],-MPD.local$mpd.obs.z[commDat$cushion.open=='cushion'],-MPD.cushion$mpd.obs.z))
+colnames(NRI.cushion)=c("Pool","NRI")
+boxplot(NRI~Pool,data=NRI.cushion,xlab="Pool",ylab="NRI",names=c("Global","Local","Cushion"))
+#no open communities
+NRI.open=cbind(as.data.frame(c(rep(1,nrow(openComm)),rep(2,nrow(openComm)),rep(3,nrow(openComm)))),c(-MPD.global$mpd.obs.z[commDat$cushion.open=='open'],-MPD.local$mpd.obs.z[commDat$cushion.open=='open'],-MPD.open$mpd.obs.z))
+colnames(NRI.open)=c("Pool","NRI")
+boxplot(NRI~Pool,data=NRI.open,xlab="Pool",ylab="NRI",names=c("Global","Local","Open"))
+```
+
+Compare the patterns within and across the two figures above.  What can we infer about the intensity of environmental filtering within cushion and open microsites based on NRI relative to different species pools?
+
+If one wanted to test for limiting similarity, one could use the ses.mntd function.  MNTD is the mean nearest taxon distance, and can be converted to NTI a la the Swenson paper.

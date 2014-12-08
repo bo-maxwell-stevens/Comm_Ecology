@@ -1,0 +1,104 @@
+,Order,Family,Genus,Species,Subspecies,fre1,fre2,fre3,fre4,fre5,fre6,fre7,fre8,fre9,fre10,fone1,fone2,fone3,fone4,fone5,fone6,fone7,fone8,fone9,fone10,bc1,bc2,bc3,bc4,bc5,bc6,bc7,bc8,bc9,bc10,narr1,narr2,narr3,narr4,narr5,narr6,narr7,narr8,narr9,narr10
+red Mite,Acari,Erythraeidae,,,,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,1,0,0,0,0,1,0,0,1,1,0
+mite Gall,Acari,Eriophyidae,Aceria,parapopuli,,0,0,0,0,0,0,0,0,0,0,1,0,287,0,0,25,4,3,0,12,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1,0
+bl. Salticid w/red Legs,Araneae,Salticidae,Talavera,,,0,1,0,0,0,0,0,0,1,0,1,0,0,0,0,1,0,0,3,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,2,0
+black Salticid,Araneae,Salticidae,,,,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+white Salticid,Araneae,Salticidae,,,,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+brn. Crab Spider,Araneae,Thomisidae,Misumenops,,,0,0,0,0,0,0,1,1,2,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,1,0,0
+red bl. Wh.brn. Salticid,Araneae,Salticidae,,,,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+wh.cream bl. Wolf Spider,Araneae,Lycosidae,,,,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+brn. Salticid,Araneae,Salticidae,,,,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+bl. Wh. Salticid,Araneae,Salticidae,,,,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0
+bl.brn.wh. Salticid,Araneae,Salticidae,,,,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,1,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Bronze Salticid,Araneae,Salticidae,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+grn.wh. Crab Spider,Araneae,Thomisidae,Misumenops,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0
+or.bl.wh. Crab Spider,Araneae,Thomisidae,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+orange Crab Spider,Araneae,Thomisidae,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Green Crab Spider,Araneae,Thomisidae,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0
+Stem borer,Coleoptera,Buprestidae,,,,1,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,1,1,1,0,1,0,0,0,0,0,0,1,0,1,0
+black Weevil,Coleoptera,Cuculionidae,,,,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+bl. Gray Clerid,Coleoptera,Cleridae,,,,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Ant-like Beetle,Coleoptera,Anthicidae,,,,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Many-spotted LBB,Coleoptera,Coccinellidae,Harmonia,,,0,2,0,2,0,1,0,0,0,0,1,0,0,0,0,1,1,0,0,1,1,1,0,0,1,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0
+LBB No Spots,Coleoptera,Coccinellidae,,,,0,0,1,1,1,0,0,1,0,0,1,0,1,0,0,0,0,0,0,0,2,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0
+bl. Beetle w/sqr. Elytra,Coleoptera,Silphidae,,,,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Adalia bipunctata,Coleoptera,Coccinellidae,Adalia,bipunctata,,0,0,1,1,0,1,0,0,0,0,0,0,2,0,1,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,2,1,0,0,0,0,0,0,0,1
+brn. Tiger beetle,Coleoptera,Cicindellidae,,,,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+C. septum punctata,Coleoptera,Coccinellidae,Coccinella,septum,punctata,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1
+Dermestid,Coleoptera,Dermestidae,,,,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Lampyridae,Coleoptera,Lamphyridae,,,,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Hippodamia convergens,Coleoptera,Coccinellidae,Hippodamia,convergens,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+2spot LBB,Coleoptera,Coccinellidae,Adalia,bipunctata,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+green or. Melyrid,Coleoptera,Melyridae,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Anthicid,Coleoptera,Anthicidae,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+red/blue chrysomelid,Coleoptera,Chrysomelidae,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0
+Forficulidae,Dermaptera,Forficulidae,,,,0,0,0,1,0,0,0,0,0,0,1,0,0,0,1,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+Punkie,Diptera,Ceratapogonidae,,,,1,1,1,0,2,0,0,0,31,3,0,1,0,2,1,3,6,11,1,0,0,0,0,0,0,3,7,3,1,0,0,0,0,0,1,0,0,0,1,2
+midge,Diptera,Chironomidae,,,,0,1,0,0,0,0,0,0,4,0,1,0,0,0,1,0,0,2,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,1,0
+Bl. Wh. Ottitid,Diptera,Ottitidae,,,,0,0,1,0,0,1,0,1,0,0,0,0,0,0,3,3,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,1,3,0,0,0
+Syrphidae,Diptera,Syrphidae,,,,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Phorid,Diptera,Phoridae,,,,0,0,0,0,0,0,0,3,1,1,2,0,0,0,0,0,0,0,5,1,2,0,0,0,0,0,0,0,0,0,3,2,0,0,0,2,0,0,3,0
+Tangerine dip,Diptera,Muscidae,,,,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0
+Calliphoridae,Diptera,Calliphoridae,,,,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+muscid,Diptera,Muscidae,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Fisheye Leafhopper,Hemiptera,Cicadellidae,,,,4,0,9,5,5,1,5,6,12,12,5,1,4,0,15,0,5,18,9,0,6,0,11,0,3,1,3,0,1,4,1,2,0,2,0,0,2,6,7,2
+Green Leafhopper brn. Wings,Hemiptera,Cicadellidae,,,,1,1,8,0,0,2,0,0,0,0,1,1,1,0,3,3,1,9,0,0,1,0,1,0,0,0,1,1,0,0,0,0,0,2,0,1,2,2,0,1
+Boxelder bug,Hemiptera,Rhopalidae,,,,1,1,0,2,0,0,1,0,3,0,0,3,1,2,1,0,0,3,7,0,1,2,0,0,0,0,0,1,1,6,1,3,0,0,0,0,0,6,2,2
+Turquoise Leafhopper,Hemiptera,Cicadellidae,,,,1,7,1,4,0,0,0,0,1,0,1,6,5,6,5,3,0,2,8,0,1,0,2,7,0,4,4,2,1,1,3,2,1,0,0,3,2,1,0,9
+Orange Leafhopper,Hemiptera,Cicadellidae,,,,0,1,5,0,0,0,0,0,3,1,2,2,1,0,2,1,1,1,0,1,1,0,2,0,1,1,0,0,1,3,1,0,1,0,0,1,0,2,0,0
+Mottled Leafhopper,Hemiptera,Cicadellidae,,,,0,1,1,0,0,0,0,0,0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0
+Green Leafhopper,Hemiptera,Cicadellidae,,,,0,1,5,4,0,1,1,0,4,3,1,4,1,1,9,5,5,5,3,1,1,1,1,0,4,1,0,0,2,1,0,0,0,2,0,0,0,2,0,0
+Brown Froghopper,Hemiptera,Cercopidae,,,,0,0,1,0,0,0,0,0,4,1,0,0,0,0,3,2,0,0,0,1,1,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,1,3,0,0
+gray Leafhopper,Hemiptera,Cicadellidae,,,,0,0,5,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0
+P. populitransversus,Hemiptera,Aphididae,Pemphigus,populitransversus,,0,0,0,6,4,2,2,0,0,3,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+P. Leaf Fold,Hemiptera,Aphididae,Thecabius,populicondupifolius,,0,0,0,9,3,6,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+brn. Scutellerid,Hemiptera,Scutelleridae,,,,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Podisus,Hemiptera,Pentatomidae,Podisus,,,0,0,0,1,0,2,0,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2,0,1,1,0,0,0,1,1
+Euschistus,Hemiptera,Pentatomidae,Euschistus,,,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Brachymena,Hemiptera,Pentatomidae,Brochymena,,,0,0,0,0,0,1,0,0,2,0,0,0,0,0,0,1,5,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0
+brn. Black Mirid,Hemiptera,Miridae,,,,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0
+Anthocorus,Hemiptera,Anthocoridae,Anthocorus,,,0,0,0,0,0,0,0,0,1,0,0,0,0,0,6,0,0,4,0,0,0,0,0,0,0,0,2,0,0,12,0,0,0,0,0,0,0,0,3,1
+Green Chaitophorus,Hemiptera,Aphididae,Chaitophorus,popullellus,,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,4,1,122,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Apactitecus,Hemiptera,Pentatomidae,Apateticus,,,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+brn. Mirid,Hemiptera,Miridae,,,,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2,1
+P. betae,Hemiptera,Aphididae,Pemphigus,betae,,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,4,0,13,9,4,0,49,12,20,1,85,74,26,20,0,21,15,23,11,0,117,18
+brn. Leafhopper ssT,Hemiptera,Cicadellidae,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+multi-colored Leafhopper,Hemiptera,Cicadellidae,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+brn. Leafhopper ,Hemiptera,Cicadellidae,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,2,0,0
+Chaitophorus populicola,Hemiptera,Aphididae,Chaitophorus,populicola,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Tingid,Hemiptera,Tingidae,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+sm.bl. Rhopalid,Hemiptera,Rhopalidae,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+wh. Leafhopper,Hemiptera,Cicadellidae,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+Green Treehopper,Hemiptera,Membracidae,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+gray Cixiid,Hemiptera,Cixiidae,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Thecabius,Hemiptera,Aphididae,Thecabius,populimonilis,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,103,9,0,0,0,0,1,1,0,20,1,0,0,122,6,1,0,1,0
+big grn. Leafhopper,Hemiptera,Cicadellidae,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0
+P. populiglobuli,Hemiptera,Aphididae,Pemphigus,populiglobuli,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3,0,0,0,2,1
+Big Brown Leafhopper,Hemiptera,Cicadellidae,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0
+bl. Pudgy Chalcid,Hymenoptera,Encyrtidae,,,,1,3,0,0,0,0,0,2,1,1,0,0,0,0,0,0,0,0,1,2,0,0,4,1,0,0,1,0,0,0,0,0,1,2,0,0,0,0,0,0
+Braconid,Hymenoptera,Braconidae,,,,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+bl. Red Sphecid,Hymenoptera,Sphecidae,,,,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Vespid,Hymenoptera,Vespidae,,,,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Andrenid,Hymenoptera,Andrenidae,,,,0,0,0,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Myrmecine ant,Hymenoptera,Formicidae,,,,0,0,0,0,0,0,0,3,0,0,0,1,0,1,0,0,2,0,24,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,1,0
+Formica sp.1,Hymenoptera,Formicidae,Formica,,,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Phllocolpa,Hymenoptera,Tenthredinidae,Phyllocolpa,,,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,2,0,0,0,0,1,0,0,1,1,0,0,0,0,0,2,1,0,0,1,0
+Brn. Red Ichneumonid,Hymenoptera,Ichneumonidae,,,,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Apidae,Hymenoptera,Apidae,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Aphidinae,Hymenoptera,Braconidae,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0
+Blotch mine,Lepidoptera,Lyonetiidae,,,,31,17,29,33,9,24,45,30,18,23,9,6,8,4,15,20,16,26,29,5,2,2,5,0,3,0,9,3,1,0,6,2,5,3,2,1,4,5,3,0
+serpentine Leaf Mine,Lepidoptera,Gracillaridae,Phyllocnistis,,,6,7,17,9,12,18,7,27,0,5,2,1,1,6,3,4,5,19,8,3,1,1,1,0,1,4,3,2,10,4,2,1,4,1,1,1,6,4,2,4
+Fall Cankerworm,Lepidoptera,Geometridae,Alsophila,pometaria,,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Leaf roll Tortricid,Lepidoptera,Tortricidae,,,,0,0,0,0,0,1,0,1,2,0,1,5,0,0,1,0,3,0,2,1,0,1,0,0,0,2,2,1,0,1,1,0,0,0,1,0,0,0,2,1
+Gelechiid,Lepidoptera,Gelechiidae,Anacampsis,niveopulvella,,0,0,0,0,0,1,0,1,3,0,0,1,0,0,2,0,0,0,0,0,0,0,0,0,0,0,1,0,2,0,1,0,0,0,3,1,0,0,7,2
+Leaf Tier,Lepidoptera,Tortricidae,Gypsonoma,haimbachiana,,0,0,0,0,0,0,0,0,1,0,1,0,2,0,1,0,0,1,0,1,0,1,1,0,0,1,2,0,3,0,0,1,1,0,1,0,1,0,1,0
+Noctuid,Lepidoptera,Noctuidae,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0
+Jumping Bristletail,Microcoryphia,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+green Chrysopid,Neuroptera,Chrysopidae,,,,1,1,6,2,1,0,0,2,12,1,0,3,1,0,9,7,1,9,0,3,0,4,2,0,10,2,0,5,5,0,3,0,5,0,38,5,5,13,1,5
+blue Damselfly,Odonata,Coenagrionidae,,,,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Daddy long legs,Opiliones,,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
+Katydid,Orthoptera,Tettigoniidae,,,,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+Tree Cricket,Orthoptera,Gryllidae,Oecanthus,,,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Brn.Wh. Acridid,Orthoptera,Acrididae,Melanoplus,sanguinipes,,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+leaf-like Katydid,Orthoptera,Tettigoniidae,,,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+bl. Thrip,Thysanoptera,,,,,0,0,0,0,1,0,0,1,4,0,2,0,0,0,1,0,0,1,0,1,0,0,0,0,2,0,0,0,1,0,1,0,0,0,1,2,0,1,2,1

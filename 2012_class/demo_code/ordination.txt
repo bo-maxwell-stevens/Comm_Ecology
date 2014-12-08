@@ -1,0 +1,45 @@
+setwd("C:/Users/Brad/Documents/Teaching/Fall_2011/Code/") #sets the working directory where all the datafiles are stored
+
+library(vegan) #loads the vegan library
+library(psych)
+library(ecodist)
+library(calibrate)
+
+comm=read.csv(file="community_comp.csv",sep=",",head=T) #read in community composition data by site
+env=read.csv(file="environmental.csv",sep=",",head=T) #environmental data by site
+traits=read.csv(file="traits_cwm.csv",sep=",",head=T) #community weighted mean trait values by site
+
+##################################################################
+#Principal components analysis (PCA) of trait data
+cwm.pca=principal(traits[c(-1)],nfactors=12,rotate="none",scores=T) #conducts PCA
+plot(cwm.pca$values) #scree plot
+
+cwm.biplot=envfit(cwm.pca$scores,env[c(-1)],choices=c(1,2))
+plot(cwm.pca$scores)
+plot(cwm.biplot)
+
+##################################################################
+#permanova
+perm=adonis(comm[c(-1)]~elev+BD,data=env[c(-1)],method="bray")
+
+##################################################################
+#Non metric multidemnsional scaling (NMDS) of community composition data
+comm.nmds=nmds(dist(comm[c(-1)]),mindim=1,maxdim=2)
+min.stress=nmds.min(comm.nmds)
+
+min.coords=as.data.frame(min.stress)
+site.names=as.vector(comm[c(1)])
+colnames(min.coords)=c("NMDS1","NMDS2")
+rownames(min.coords)=t(site.names)
+plot(min.coords)
+textxy(min.coords$NMDS1,min.coords$NMDS2,rownames(min.coords))
+
+plot(hclust(dist(comm[c(-1)])),labels=t(site.names))
+
+##################################################################
+#DCA and CCA
+comm.dca=decorana(comm[c(-1)])
+
+rownames(comm)=t(site.names)
+cca.comm=cca(comm[c(-1)],env[c(-1)])
+plot(cca.comm)

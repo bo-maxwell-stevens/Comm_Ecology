@@ -1,0 +1,83 @@
+---
+title: "Taxonomic Diversity"
+output: html_document
+---
+
+This week we will apply alpha diversity indices to our arthropod data, then use rarefaction and species pool estimators to get an idea of differences in the number of arthropod species within each tree, and within each tree type. 
+
+First let's read in our dataset and load the {vegan} library
+```{r}
+commDat=read.csv("U:/LOCKED/arthropod_data/commComp_2000.csv",na.strings=c("","NA"))
+library(vegan)
+```
+
+Type in ?diversity to see the many options for calculating alpha diversity and other variables with vegan.
+We'll calculate several indices
+
+```{r}
+shann=diversity(commDat[,-c(1:6)],index="shannon",MARGIN=2)
+simps=diversity(commDat[,-c(1:6)],index="simpson",MARGIN=2)
+fisher=fisher.alpha(commDat[,-c(1:6)],MARGIN=2)
+```
+
+Let's see how redundant these indices are.
+
+```{r}
+par(mfrow=c(1,3))#this is one way to set up a plot with multiple frames, in this case 1 row and 3 columns
+plot(shann,simps,xlab="Shannon",ylab="Simpson")
+plot(shann,fisher,xlab="Shannon",ylab="Fisher")
+plot(simps,fisher,xlab="Simpson",ylab="Fisher")
+par(mfrow=c(1,1))#resetting the plotting parameter mfrow to the default
+```
+
+Now let's see how one index, Shannon's, varies among tree types
+
+```{r}
+boxplot(shann~rep(c("Fremont","F1","BC","Narrowleaf"),each=10))
+```
+
+As you may recall, comparing diversity indices across communities that vary in number of individuals can be misleading.  Though the literature we have discussed so far has focused on species richness, the same applies to the indices we have been working with so far as well.
+
+The proper way to compare species richness across communities is with rarefaction.  Let's plot some rarefaction curves to start.
+
+```{r}
+rarecurve(t(commDat[,-c(1:6)]))
+```
+
+Clearly there are some big differences in rarefied species richness.  In order to compare across communities, we need to compare rarefied species richness at the same number of samples (individuals).  One way to do this is to use the number of individuals in the smallest community as our sample size.
+
+```{r}
+min(colSums(commDat[,-c(1:6)]))#the minimum sample size is 11 individuals
+rarecurve(t(commDat[,-c(1:6)]),sample=11,xlim=c(0,11),ylim=c(0,10))#obviously very restrictive; this is the downside to having really heterogeneous data in terms of individuals within communities
+rarefy(commDat[,-c(1:6)],sample=11,MARGIN=2)#estimated number of species from 11 individuals; this is calculated as the expected number of species given the number of samples in Hurlbert 1971
+boxplot(rarefy(commDat[,-c(1:6)],11,MARGIN=2)~rep(c("Fremont","F1","BC","Narrowleaf"),each=10))
+
+#how much does the sample size seem to influence estimates of species richness?
+rarefy11=rarefy(commDat[,-c(1:6)],sample=11,MARGIN=2)
+rarefy50=rarefy(commDat[,-c(1:6)],sample=50,MARGIN=2)#for any communities with <=50 individuals, the rarefied species richness will be equivalent to the observed total species richness
+plot(rarefy11,rarefy50)#relatively closely related
+cor(rarefy11,rarefy50)^2#72% communal variance between rarefactions with 11 and 50 samples, not bad
+boxplot(rarefy50~rep(c("Fremont","F1","BC","Narrowleaf"),each=10))#looks like pretty similar patterns across tree types for 11 and 50 samples too
+```
+
+One way to take advantage of all of the data, rather than restricting ourselves to very small sample sizes for rarefaction, is to extrapolate the rarefaction results to estimate the "actual" size of the unobserved species pool across all trees, or within one group of trees.
+
+```{r}
+gamma=specpool(t(commDat[,-c(1:6)]))
+alpha=specpool(t(commDat[,-c(1:6)]),pool=rep(c("Fremont","F1","BC","Narrowleaf"),each=10))
+specp=rbind(gamma,alpha)
+plot(c(1:5),c(1:5),col=NA,ylim=c(50,270),xlab="Pool",ylab="Estd. Species",xaxt="n")
+axis(1,at=c(1:5),labels=rownames(specp))
+points(c(1:5),specp$Species,pch=0)#observed number of species across all trees of a given group
+points(c(1:5),specp$chao,pch=19,col="blue")#estimated species richness based on extrapolation in each group
+points(c(1:5),specp$chao+specp$chao.se,col="blue")#upper end of confidence intervals
+points(c(1:5),specp$chao-specp$chao.se,col="blue")#lower end of confidence intervals
+#This really changes the picture, doesn't it?  Compare this to the rarefaction curves for each group:
+plot(specaccum(t(commDat[,c(7:16)]),method="rarefaction"),xvar="individuals")#Fremont
+plot(specaccum(t(commDat[,c(17:26)]),method="rarefaction"),xvar="individuals",add=T,col="blue")#F1
+plot(specaccum(t(commDat[,c(27:36)]),method="rarefaction"),xvar="individuals",add=T,col="red")#BC
+plot(specaccum(t(commDat[,c(37:46)]),method="rarefaction"),xvar="individuals",add=T,col="green")#Narrowleaf
+#Notice that the trajectory of Fremont is higher than that of the other three groups. This explains why the extrapolated species pool is so much greater.  Now compare the last two figures to the boxplots of diversity indices and rarefied species richness; what explains these superficially contradictory results?
+```
+
+Next week we will dig deeper by assess betadiversity across communities, and within versus among tree types using a variety of ordination techniques.

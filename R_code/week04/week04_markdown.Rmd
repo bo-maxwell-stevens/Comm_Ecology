@@ -1,0 +1,90 @@
+---
+title: "Week 4: Fun with Food Webs"
+output: html_document
+---
+
+Before creating some food webs and analyzing them, we'll begin by learning a little bit about lists.
+A list is a way of indexing arrays of different dimensions (and performing other functions).
+For instance, the arthropod data we have been working with are available for 4 sequential years (we have only been working with the first).
+There are different numbers of species in each yea, thus we would have to create a list object, rather than a 3-way array (species, plot, time).
+
+```{r}
+dir("U:/LOCKED/arthropod_data")#see what the file names look like
+commList=list()#creating a list object with no data yet
+for (i in 0:3){#starting a for loop
+  commList[[i+1]]=read.csv(paste("U:/LOCKED/arthropod_data/commComp_200",paste(i,"csv",sep="."),sep=""),na.strings=c("","NA"))#the paste function allows you to create strings (e.g. words) by combining other strings
+  #the preceding line reads "commList array 1 is the dataset from year 2000"
+}
+```
+
+Because the same trees were sampled each year, we can combine all of these datasets into a single, 2-dimensional array with an extra column added to indicate sampling year.
+
+```{r}
+yrLngth=lapply(commList,nrow)#getting the number of rows for each dataframe associated with a given year
+commDat=rbind(commList[[1]],commList[[2]],commList[[3]],commList[[4]])#row binding each year into a single dataframe; note that rbind will only work if all dataframes have the same column names
+commDat=cbind(c(rep(2000,yrLngth[1]),rep(2001,yrLngth[2]),rep(2002,yrLngth[3]),rep(2003,yrLngth[4])),commDat)#adding a column with year of data collection
+#check out the following section of the line above to understand how we wrote this column
+rep(2000,yrLngth[1])
+colnames(commDat)[1:2]=c("Year","ID")#name the first two columns of the dataset (currently nameless)
+head(commDat)
+```
+
+Now, after all that, let's just take the first year of data again
+
+```{r}
+commDat00=commDat[commDat$Year==2000,]
+```
+
+Let's load the bipartite library.  Install it first if it is not in your list of packages.
+
+```{r}
+?bipartite #see what this package is all about
+```
+
+Alright, we're going to create a "food web" inferred from co-occurrence patterns of predator and potential prey species (this is not an actual food web, as we did not observe consumption).
+
+First we need to put the data in a format that bipartite can use to construct a web: a series of links between predator and prey species.  To do this, bipartite takes as its input a matrix with predators and prey as columns and rows, where the cell values are interaction intensities.
+
+Let's start by splitting our data into predators and prey
+
+```{r}
+predators=match(commDat00$Order,c("Araneae","Opiliones"))#identifying the rows of spiders and daddy longlegs
+predDat=commDat00[!is.na(predators),]#making all spiders "predator"; this is probably inaccurate, as tiny jumping spiders aren't eating e.g. huge katydids, but we'll deal with "trait matching" later
+preyDat=commDat00[is.na(predators),]#notice the difference from the previous line?
+```
+
+Is there a relationship between predator and prey abundances? (Remember the warning about correlative relationships like this from Carpenter and Kitchell...)
+
+```{r}
+plot(colSums(preyDat[,8:47]),colSums(predDat[,8:47]),xlab="Prey Abundance",ylab="Predator Abundance")#looks like predators tend to increase with prey, looks good!
+```
+
+We're going to be lazy and assume for now that any co-occurrence between predator and prey constitutes an interaction, and that the product of their abundances is proportional to the intensity of the interaction.
+
+```{r}
+webDat=as.matrix(preyDat[,8:47])%*%t(as.matrix(predDat[,8:47]))#this is matrix multiplication: the resulting dimensions will be equal to the number of rows of the first matrix (prey species) and the number of columns of the second matrix (transpose of the predators matrix, i.e. number of predator species)
+colnames(webDat)=predDat$ID
+rownames(webDat)=preyDat$ID
+```
+
+Alright, let's look at our food web!
+
+```{r}
+library(bipartite)
+plotweb(webDat)
+visweb(t(webDat))
+```
+
+Now lets see what kind of network indices we can get out of this bipartite package
+
+Type in ?networklevel and scroll on down to "Value"
+
+Let's calculate a few network-level (as opposed to species-level) indices
+
+```{r}
+networklevel(webDat,index=c("connectance","nestedness","H2"))
+```
+
+What do these values mean?  How can they be interpreted based on the types of data we're using, and the nature of predator-prey interactions (as opposed to the mutualistic networks we looked at before)?  Are values of nestedness or specialization meaningful in the absence of null models?
+
+We will get into generating null expectations for co-occurrences in a few weeks.

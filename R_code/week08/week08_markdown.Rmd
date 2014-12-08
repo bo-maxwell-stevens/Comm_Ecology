@@ -1,0 +1,69 @@
+---
+title: "Functional Diversity Indices"
+output: html_document
+---
+
+We are going to calculate some functional diversity indices for some grassland plant communities.  We will primarily be using the "FD" library, but will also write a function to calculate univariate FDvar from Mason 2003 JVS.
+
+First let's read in our community composition and functional trait datasets
+
+```{r}
+setwd('U:/LOCKED/grassland_data/')
+comm=as.data.frame(read.csv('community_comp.csv',head=T,row.names=1))
+traits=as.data.frame(read.csv('trait_by_species.csv',head=T,row.names=1))
+traits=traits[,-c(1,19:20)]
+head(traits)
+```
+
+Notice that we have a mix of continuous and categorical traits.
+
+Now let's run the primary function of the "FD" library, dbFD().  The default is to provide several FD indices (look at the help menu for descriptions).
+
+```{r}
+library(FD)
+multiFD=dbFD(traits,comm)
+multiFD
+```
+
+Note that when the dbFD function was applied, there were messages saying "Dimensionality reduction was required" and "Quality of reduced-space representation = 0.634".  The number of trait dimensions was reduced using a PCoA (would have been a PCA if all traits were continuous), and represented ~63% of the variance in the raw trait data.
+
+Let's look at some relationships among FD indices.
+
+```{r}
+pairs(~multiFD$nbsp+multiFD$FRic+multiFD$FEve+multiFD$FDiv+multiFD$RaoQ)
+```
+
+What patterns do you see?
+
+Typically you would want to standardize your trait data first.  If you have traits that naturally vary in their range, variables with greater ranges will have larger effects on the calculation of FD.
+
+```{r}
+zTrans=function(x){
+  return((x-mean(x,na.rm=T))/sd(x,na.rm=T))
+}
+zTraits=apply(traits[,-c(1:2)],2,zTrans)
+zTraits=cbind(traits[,1:2],zTraits)#adding back in our categorical traits
+zFD=dbFD(zTraits,comm)
+```
+
+Cramming all traits together to calculated a single FD value loses information on specific trait patterns.  Let's calculate the indices for a single trait, height, across all communities, a la Mason et al. 2005.
+
+```{r}
+height=as.data.frame(traits$Ht)
+row.names(height)=row.names(traits)
+heightFD=dbFD(height,comm)
+heightFD
+```
+
+Note that we are missing FDiv, which can't be calculated on a single trait.  The univariate analog to FDiv is FDvar (Mason 2003 JVS).  See Butterfield and Suding 2013 as well.
+
+We need to create our own FDvar function.  I have done this and saved it as a .R file in our working directory.  You can open it up and check it out, or just type in 'FDvar' AFTER running the source() line below.  This is a convenient way of keeping your code organized, especially for functions that you may use frequently.
+
+```{r}
+source('U:/LOCKED/grassland_data/FDvar_fxn.R')
+
+heightFDvar=apply(comm,1,FDvar,traits$Ht)
+heightFDvar
+pairs(~heightFD$nbsp+heightFD$FRic+heightFD$FEve+heightFDvar+heightFD$RaoQ)
+```
+

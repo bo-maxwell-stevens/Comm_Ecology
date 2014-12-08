@@ -1,0 +1,372 @@
+$AmpVersion=6
+$DateTime1=2011-9-16-17-39-28-789
+$DateTime2=2011-9-16-17-39-28-789
+$DateTime3=2011-9-16-17-39-28-789
+$group=Group number 1
+$group=Group number 1
+$vnames
+5
+PTSum
+lnCover
+lnOpenSR
+RII
+lnTotalSR
+$allnames
+9
+PTSum
+lnCover
+lnOpenSR
+RII
+lnTotalSR
+e4
+e1
+e2
+e3
+$map
+9
+1
+6
+7
+8
+9
+0
+0
+0
+0
+$model=Default model
+$Convergence=Minimum was achieved
+$ModelNote
+Chi-square = 28.909
+Probability level = 0.000
+$EndNote
+$cmin=28.90927295
+$df=4
+$p=8.15623883e-006
+$group=Group number 1
+$Regression Weights:
+$p
+lnOpenSR
+PTSum
+0.018003308
+0.0094410083
+1.9069264
+
+$p
+RII
+lnCover
+-0.15528571
+0.049342156
+-3.1471205
+
+$p
+lnTotalSR
+lnOpenSR
+0.91321945
+0.037558877
+24.314344
+
+$p
+lnTotalSR
+RII
+0.59896004
+0.068807326
+8.7048876
+
+$p
+lnOpenSR
+lnCover
+-0.17742814
+0.47773982
+-0.37139073
+
+$p
+lnCover
+lnOpenSR
+0.56535414
+0.56041671
+1.0088103
+
+$x
+
+
+
+
+
+
+$Standardized Regression Weights:
+$p
+lnOpenSR
+PTSum
+0.25817098
+
+
+
+$p
+RII
+lnCover
+-0.33759233
+
+
+
+$p
+lnTotalSR
+lnOpenSR
+0.91836125
+
+
+
+$p
+lnTotalSR
+RII
+0.32878664
+
+
+
+$p
+lnOpenSR
+lnCover
+-0.21055303
+
+
+
+$p
+lnCover
+lnOpenSR
+0.47641079
+
+
+
+$x
+
+
+
+
+
+
+$Variances:
+$p
+PTSum
+
+64.070218
+10.325851
+6.2048368
+
+$p
+e1
+
+0.3433789
+0.1774291
+1.935302
+
+$p
+e4
+
+0.4148048
+0.10044798
+4.1295484
+
+$p
+e2
+
+0.082252843
+0.013256246
+6.2048368
+
+$p
+e3
+
+0.033505666
+0.005399927
+6.2048368
+
+$x
+
+
+
+
+
+
+$Squared Multiple Correlations:
+$p
+lnCover
+
+0.054590785
+
+
+
+$p
+lnOpenSR
+
+-0.10211683
+
+
+
+$p
+RII
+
+0.11396858
+
+
+
+$p
+lnTotalSR
+
+0.89124504
+
+
+
+$x
+
+
+
+
+
+
+$Parameter Names
+11
+
+
+
+
+
+
+
+
+
+
+
+$model=Default model
+$npar=11
+$cmin=28.90927295
+$df=4
+$p=8.15623883e-006
+$cmindf=7.227318239
+$model=Saturated model
+$npar=15
+$cmin=0
+$df=0
+$model=Independence model
+$npar=5
+$cmin=197.1541136
+$df=10
+$p=6.327328065e-037
+$cmindf=19.71541136
+$model=Default model
+$rmr=0.1076446107
+$gfi=0.8811760048
+$agfi=0.5544100181
+$pgfi=0.234980268
+$model=Saturated model
+$rmr=0
+$gfi=1
+$agfi=-1.797693135e+308
+$pgfi=-1.797693135e+308
+$model=Independence model
+$rmr=0.4637295891
+$gfi=0.6238829923
+$agfi=0.4358244885
+$pgfi=0.4159219949
+$model=Default model
+$nfi=0.8533671329
+$rfi=0.6334178321
+$ifi=0.8710393867
+$tli=0.6672625508
+$cfi=0.8669050203
+$model=Saturated model
+$nfi=1
+$rfi=-1.797693135e+308
+$ifi=1
+$tli=-1.797693135e+308
+$cfi=1
+$model=Independence model
+$nfi=0
+$rfi=0
+$ifi=0
+$tli=0
+$cfi=0
+$model=Default model
+$pratio=0.4
+$pnfi=0.3413468531
+$pcfi=0.3467620081
+$model=Saturated model
+$pratio=0
+$pnfi=0
+$pcfi=0
+$model=Independence model
+$pratio=1
+$pnfi=0
+$pcfi=0
+$model=Default model
+$ncp=24.90927295
+$ncplo=11.42829132
+$ncphi=45.86438751
+$model=Saturated model
+$ncp=0
+$ncplo=0
+$ncphi=0
+$model=Independence model
+$ncp=187.1541136
+$ncplo=145.2089767
+$ncphi=236.5329514
+$model=Default model
+$fmin=0.3754451033
+$f0=0.3234970514
+$f0lo=0.1484193678
+$f0hi=0.5956413963
+$model=Saturated model
+$fmin=0
+$f0=0
+$f0lo=0
+$f0hi=0
+$model=Independence model
+$fmin=2.560443034
+$f0=2.430572905
+$f0lo=1.885830867
+$f0hi=3.071856511
+$model=Default model
+$rmsea=0.2843840059
+$rmsealo=0.1926261715
+$rmseahi=0.3858890372
+$pclose=5.036003599e-005
+$model=Independence model
+$rmsea=0.4930084081
+$rmsealo=0.4342615418
+$rmseahi=0.554243314
+$pclose=8.246107064e-007
+$model=Default model
+$aic=50.90927295
+$bcc=52.76842788
+$bic=76.83307005
+$caic=87.83307005
+$model=Saturated model
+$aic=30
+$bcc=32.53521127
+$bic=65.3506324
+$caic=80.3506324
+$model=Independence model
+$aic=207.1541136
+$bcc=207.9991841
+$bic=218.9376578
+$caic=223.9376578
+$model=Default model
+$ecvi=0.661159389
+$ecvilo=0.4860817055
+$ecvihi=0.9333037339
+$mecvi=0.6853042582
+$model=Saturated model
+$ecvi=0.3896103896
+$ecvilo=0.3896103896
+$ecvihi=0.3896103896
+$mecvi=0.4225352113
+$model=Independence model
+$ecvi=2.690313164
+$ecvilo=2.145571127
+$ecvihi=3.331596771
+$mecvi=2.701288105
+$model=Default model
+$hfive=26
+$hone=36
+$model=Independence model
+$hfive=8
+$hone=10
+$EndFile

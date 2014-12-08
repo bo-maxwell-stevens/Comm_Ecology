@@ -1,0 +1,244 @@
+####from Nathan Kraft's website; drop down below "End of Functions" for an example using the grassland dataset
+
+# Function to calculate the unbiased population estimate or the biased sample statistic of kurtosis. from http://www2.jura.uni-hamburg.de/instkrim/kriminologie/Mitarbeiter/Enzmann/Software/kurtosis.r Aug 2 2007
+
+
+kurtosis=function(x, biased=F, na.rm=T)
+
+{
+ if (na.rm==T) x = x[!is.na(x)]
+ n = length(x)
+ if (n < 4)
+ {
+   if (na.rm==T)
+   {
+      cat('valid cases = ',n,'\nkurtosis is not defined for less than 4 valid cases!\n')
+   }
+   else
+   {
+      cat('cases = ',n,'\nkurtosis is not defined for less than 4 cases!\n')
+   }
+ }
+ else
+ {
+   if (biased==T)
+   {
+      z = sqrt(n/(n-1))*scale(x)
+      k = mean(z^4)-3
+   }
+   else
+   {
+      z = scale(x)
+      k = sum(z^4)*n*(n+1)/((n-1)*(n-2)*(n-3))-3*(n-1)^2/((n-2)*(n-3))
+   }
+ k
+ }
+}
+
+get_kurt=function(vect){
+	return(kurtosis(vect))
+	}
+
+get_range=function(vect){
+	r<-range(vect, na.rm=TRUE)
+	return(r[2]-r[1])
+	}
+	
+get_spacing=function(vect){
+	vect<-vect[!is.na(vect)]
+	vect[order(vect)]->v
+	n<-length(v)
+	spacing=NULL
+	summary=NULL
+	
+	spacing[1]<-abs(v[1]-v[2])
+	for (i in 2:(n-1)){
+		first<-abs(v[i]-v[i-1])
+		second<-abs(v[i]-v[i+1])
+		spacing[i]<-min(first, second)
+		}
+	spacing[(length(spacing)+1)]<-abs(v[n]-v[n-1])
+	summary$SDNN<-sd(spacing)
+	summary$SDND<-sd(diff(sort(vect))/get_range(vect))
+	return(summary)
+	}
+
+get_var=function(vect){
+	return(var(vect, na.rm=TRUE))
+	}	
+	
+	
+### Utility functions:
+	
+trim_pool_to_sample=function(restricted_sample,pool){
+	sp<-unique(restricted_sample$sp)
+	pool[(pool$sp %in% sp),]->np
+	
+	return(np)
+	
+	}
+
+
+### Function to build a null distribution:
+
+make_null=function(pool,richness,log=TRUE, reps=999, abweight=FALSE, abdata=NULL) {
+	##abdata should be a sp x abund DF
+	
+	summary=NULL
+	pool<-pool[!is.na(pool[2]),]
+	if(log){
+		pool[2]<-log10(pool[2])
+		}
+	
+	if(abweight){
+			merge(pool,abdata)->new
+			new->pool
+			}else{pool$abund<-1}
+	
+
+	
+	for (i in 1:reps){
+		sample(pool[,2], richness, prob=pool$abund)-> simcom
+		##trait mean
+		summary$mean[i]<-mean(simcom)
+		##trait range
+		summary$range[i]<-get_range(simcom)
+		##spacing stats
+		summary$var[i]<-get_var(simcom)
+		space<-get_spacing(simcom)
+		summary$SDNN[i]<-space$SDNN
+		summary$SDNNr[i]<-summary$SDNN[i]/summary$range[i]
+		summary$SDNDr[i]<-space$SDND/summary$range[i]
+		summary$kurt[i]<-get_kurt(simcom)
+		
+				}
+	summary<-as.data.frame(summary)
+	return(summary)
+	}
+	
+
+### Main function that puts it all together:
+
+test_trait_data=function(sp_list, pool, log=TRUE, reps=999,abweight=FALSE, abdata=NULL, verbose=FALSE){
+	
+	
+	community<-pool[pool$sp %in% sp_list,]
+	
+	dim(community)[1]->richness
+	summary=NULL
+	summary$test.richness<-richness
+	summary$reps<-reps
+	
+	if(log){community[2]<-log10(community[2])}
+	
+	make_null(pool,richness, log=log, reps=reps, abweight=abweight, abdata=abdata)->nulldist
+	summary$mean_rank<-sum(nulldist$mean<mean(community[,2]))
+	summary$range_rank<-sum(nulldist$range<get_range(community[,2]))
+	
+	obspace<-get_spacing(community[,2])
+	summary$SDNN_rank<-	sum(nulldist$SDNN<obspace$SDNN)
+	summary$SDNNr_rank<-sum(nulldist$SDNNr<(obspace$SDNN/get_range(community[,2])))
+	summary$SDNDr_rank<- sum(nulldist$SDNDr<(obspace$SDND/get_range(community[,2])))
+	summary$kurt_rank<-	sum(nulldist$kurt<get_kurt(community[,2]))
+	summary$var_rank<-	sum(nulldist$var<get_var(community[,2]))
+	summary<-as.data.frame(summary)
+	
+	
+
+	summary$obs_mean<-mean(community[,2])
+	summary$null_mean_mean<-mean(nulldist$mean)
+	summary$null_mean_sd<-sd(nulldist$mean)
+		
+	summary$obs_range<-get_range(community[,2])
+	summary$null_mean_range<-mean(nulldist$range)
+	summary$null_range_sd<-sd(nulldist$range)
+		
+	summary$obs_SDNN<-obspace$SDNN
+	summary$null_mean_SDNN<-mean(nulldist$SDNN)
+	summary$null_SDNN_sd<-sd(nulldist$SDNN)
+		
+	summary$obs_kurt<-get_kurt(community[,2])
+	summary$null_mean_kurt<-mean(nulldist$kurt)
+	summary$null_kurt_sd<-sd(nulldist$kurt)
+		
+	summary$obs_var<-get_var(community[,2])
+	summary$null_mean_var<-mean(nulldist$var)
+	summary$null_var_sd<-sd(nulldist$var)
+		
+	summary$obs_SDNNr<-summary$obs_SDNN/summary$obs_range
+	summary$null_mean_SDNNr<-mean(nulldist$SDNNr)
+	summary$null_SDNNr_sd<-sd(nulldist$SDNNr)
+		
+	summary$obs_SDNDr<-obspace$SDND/summary$obs_range
+	summary$null_mean_SDNDr<-mean(nulldist$SDNDr)
+	summary$null_SDNDr_sd<-sd(nulldist$SDNDr)
+
+	
+	summary$mean_ES<-(summary$obs_mean-summary$null_mean_mean )/summary$null_mean_sd
+	summary$range_ES<-(summary$obs_range-summary$null_mean_range )/summary$null_range_sd
+	summary$var_ES<-(summary$obs_var-summary$null_mean_var )/summary$null_var_sd
+	summary$SDNN_ES<-(summary$obs_SDNN-summary$null_mean_SDNN )/summary$null_SDNN_sd
+	summary$SDNNr_ES<-(summary$obs_SDNNr-summary$null_mean_SDNNr )/summary$null_SDNNr_sd
+	summary$SDNDr_ES<-(summary$obs_SDNDr-summary$null_mean_SDNDr )/summary$null_SDNDr_sd
+	summary$kurt_ES<-(summary$obs_kurt-summary$null_mean_kurt )/summary$null_kurt_sd
+	
+	if(verbose){
+		return(summary)
+		}else{ 
+			return(summary[,c("test.richness", "reps", "mean_rank", "mean_ES", "range_rank", "range_ES", "var_rank", "var_ES", "SDNN_rank", "SDNN_ES", "SDNNr_rank", "SDNNr_ES", "SDNDr_rank", "SDNDr_ES", "kurt_rank", "kurt_ES")])  
+			
+			}
+	
+}
+
+##################################
+## END of functions ####
+########################
+
+#example using nearest neighbor trait distances; can do the same for other metrics
+
+setwd("C:/Users/Brad/Documents/Teaching/Fall_2011/Code/grassland_data/") #sets the working directory where all the datafiles are stored
+
+comm=read.csv(file="community_comp.csv",sep=",",head=T) #read in community composition data by site
+
+traits=read.csv(file="trait_by_species.csv",sep=",",head=T)
+
+pool=data.frame(traits$Ht,t(comm[c(-1)]))
+colnames(pool)=c("Height",as.matrix(comm[,1]))
+
+abundance=colsums(comm[c(-1)])
+draw.prob=abundance/sum(abundance)#this will be used to weight the sampling probabilities for the null communities by species' observed abundances across all plots
+
+obs.SDNN=vector()#will store the observed SDNN for each plot following the loop below
+obs.SDND=vector()#SDNN standardized by range of trait values (see get_spacing function above)
+ses.SDNN=vector()#standardized effect size of SDNN (see the loop below for calculation)
+ses.SDND=vector()
+
+for (i in pool[c(-1)]){
+local.comm=subset(pool[c(1)],i>0)
+local.spacing=get_spacing(local.comm)
+	obs.SDNN=cbind(obs.SDNN,local.spacing$SDNN)
+	obs.SDND=cbind(obs.SDND,local.spacing$SDND)
+
+size=length(t(local.comm))
+	rnd.SDNN=vector()
+	rnd.SDND=vector()
+	for (j in 1:1000){
+	rnd.comm=sample(pool[,1],size,replace=FALSE,prob=draw.prob)
+	rnd.spacing=get_spacing(rnd.comm)
+		rnd.SDNN=cbind(rnd.SDNN,rnd.spacing$SDNN)
+		rnd.SDND=cbind(rnd.SDNN,rnd.spacing$SDND)
+	}
+
+ses.SDNN=cbind(ses.SDNN,(obs.SDNN-mean(rnd.SDNN))/sd(as.vector(rnd.SDNN)))
+ses.SDND=cbind(ses.SDND,(obs.SDND-mean(rnd.SDND))/sd(as.vector(rnd.SDND)))
+
+}
+
+hist(ses.SDNN)
+mean(ses.SDNN)
+wilcox.test(ses.SDNN,y=NULL,alternative=c("two.sided"),mu=0)#testing whether ses.SDNN is significantly different from 0; using wilcox.test because data are not normally distributed
+
+hist(ses.SDND)
+mean(ses.SDND)
+wilcox.test(ses.SDND,y=NULL,alternative=c("two.sided"),mu=0)

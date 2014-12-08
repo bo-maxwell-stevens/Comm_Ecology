@@ -1,0 +1,67 @@
+---
+title: "Working with Phylogenies and Calculating Phylogenetic Diversity"
+output: html_document
+---
+
+We are going to read in a phylogeny (.tre file), learn how to manipulate that phylogeny in R, and calculate some basic phylogenetic diversity indices.
+
+The phylogeny we are going to work with contains species from >80 alpine plant communities in North and South America, Europe, Asia and New Zealand,
+```{r}
+setwd('U:/LOCKED/phylo_data/')
+library(ape)
+gammaTree=read.tree("bladj_dichotomous.tre")
+gammaTree#this is the summary info provide for a phylo object in ape
+plot(gammaTree)
+zoom(gammaTree,1:30)
+```
+
+There are many more tools for manipulating and plotting phylogenies in R.  Check out the ape package for more info.
+
+We are just going to focus on the phylogenetic composition of a single commmunity from Slovakia out of the >80 upon which the phylogeny is based.  The community dataset is split into two microhabitat types, cushion (other plants growing inside of cushion plants, in this case Silene acaulis) and open (bare ground).
+
+Let's read in the community dataset, then "prune" our tree to just those species that occur in this one dataset.
+```{r}
+commDat=read.csv('U:/LOCKED/phylo_data/commSlovakia.csv')
+commDat[is.na(commDat)]=0#converting all of the empty cells, which are read in as NA, to zeros
+library(picante)#a very useful package for community phylogenetic analysis
+alphaTree=prune.sample(commDat[,-c(1:2)],gammaTree)#this step prunes the tree by matching the tip labels of the master phylogeny to the column names in the dataset
+plot(alphaTree)
+```
+
+Now let's calculate phylogenetic diversity for the cushion and open communities serparately.  PD is the sum of all branch lengths of a tree.
+
+```{r}
+cushPD=pd(commDat[commDat$cushion.open=='cushion',-c(1:2)],alphaTree)
+openPD=pd(commDat[commDat$cushion.open=='open',-c(1:2)],alphaTree)
+hist(openPD$PD-cushPD$PD)#we can see here that PD is typically greater in the open than in cushions
+t.test(openPD$PD,cushPD$PD)#this t-test result confirms what we see in the histogram
+
+#PD is monotonically related to species richness: any new species added to a phylogeny is going to increase PD.  But, we can ask how PD scales with SR
+plot(openPD$SR,openPD$PD)
+abline(lm(openPD$PD~openPD$SR))
+points(cushPD$SR,cushPD$PD,col='red')
+abline(lm(cushPD$PD~cushPD$SR),col='red')
+```
+
+A common measure of community phylogenetic composition is mean phylogenetic distance (MPD), or the average phylyogenetic distance among all species within a community.  Let's calculate MPD.
+
+```{r}
+cushMPD=mpd(commDat[commDat$cushion.open=='cushion',-c(1:2)],cophenetic.phylo(alphaTree))#This function takes as an input the phylogenetic distance matrix among species, rather than the phylogeny itself, hence the extra step with the cophenetic.phylo function
+openMPD=mpd(commDat[commDat$cushion.open=='open',-c(1:2)],cophenetic.phylo(alphaTree))
+t.test(openMPD,cushMPD)
+#is this t-test result the same as, or different from, the one above on PD? How might we interpret this?
+```
+
+Now let's look at an index of phylobetadiversity, i.e. the shared phylogenetic history between two samples. In this case, it seems like a good idea to assess phylobetadiversity between each pair of open and cushion microhabitats.  In this case, we are using the phylosor function in Picante to estimate the fraction of branch length shared between two communities.
+
+
+```{r}
+phyloBeta=vector()
+for (i in 1:max(commDat[,1])){
+  phyloBeta=c(phyloBeta,phylosor(commDat[commDat$sample==i,-c(1:2)],alphaTree))
+}
+hist(phyloBeta)
+```
+
+Do these values mean much on their own?  What additional information might we want to make some strong inferences about phylogenetic community structure from our alpha and beta diversity estimates? (hint: think about the trait-based analyses we did).
+

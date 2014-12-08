@@ -1,0 +1,22 @@
+setwd("C:/Users/Brad/Documents/data/SFREC/clean data/")
+
+library(FD)
+
+traits=read.csv(file="trait_by_species.csv",sep=",",head=TRUE)
+comm=read.csv(file="community_comp.csv",sep=",",head=TRUE)
+env=read.csv(file="site_env_pools.csv",sep=",",head=TRUE)
+traits=as.matrix(traits[c(5,6,7,8,10,11,12,14,15,16,18,19,20)])
+comm=as.data.frame(A[c(-1)])
+rownames(traits)=colnames(comm)
+
+
+FD=dbFD(traits,comm)#calculates multi-trait functional diversity indices using all of the traits included in the dataset
+CWM=FD$CWM
+
+
+height=traits[,2]#calculating univariate indices for height
+names(height)=rownames(traits)
+fd=dbFD(height,comm)
+
+
+pairs(~FD$nbsp+FD$FRic+FD$FEve+FD$FDis+FD$RaoQ,data=FD)#looking at relationships among different multivariate indices

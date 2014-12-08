@@ -1,0 +1,22 @@
+setwd("C:/Users/Brad/Documents/Teaching/Fall_2011/Code/grassland_data/") #sets the working directory where all the datafiles are stored
+
+library(picante)
+library(bipartite)
+
+comm=read.csv(file="community_comp.csv",sep=",",head=T) #read in community composition data by site
+comm=as.matrix(comm[c(-1)])
+comm[comm>0]=1
+
+checker.obs=C.score(comm,normalise=TRUE,FUN=mean)
+
+checker.sim=vector()
+
+for (i in 1:1000){
+sim.comm=randomizeMatrix(comm,null.model=c("independentswap"),iterations=1000)
+c.score=C.score(sim.comm,normalise=TRUE,FUN=mean)
+checker.sim=cbind(checker.sim,c.score)
+}
+
+hist(checker.sim)
+
+min(checker.sim)

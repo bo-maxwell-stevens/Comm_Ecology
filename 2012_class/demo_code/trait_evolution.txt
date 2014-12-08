@@ -1,0 +1,83 @@
+setwd("C:/Users/Brad/Documents/Teaching/Fall_2011/Code/")
+library(ape)
+library(picante)
+library(geiger)
+#library(ecodist)
+#library(ade4)
+
+A=read.tree("all_taxa_bladj.tre")
+RII.dat=read.csv(file="cushion_preference.csv",sep=",",head=T)
+RII.dat=as.data.frame(RII.dat)
+
+###################### K-tests etc.
+### species-level RII
+RII.dat[is.na(RII.dat)]=-999
+RII.sp=vector()
+
+for (i in RII.dat[c(-1)]){
+RII.out=tapply(i,RII.dat$Taxon,max,na.rm=FALSE)
+RII.sp=cbind(RII.sp,RII.out)
+}
+RII.sp=as.data.frame(RII.sp)
+RII.sp[RII.sp==-999]=NA
+
+RII.sp.mean=rowMeans(RII.sp,na.rm=TRUE)
+
+### phylostruct of RII (non-cushions)
+N=t(RII.sp.mean)
+tree=prune.sample(N,A)
+tree.di=multi2di(tree,random=TRUE)
+
+tips=cbind(tree.di$tip.label,c(1:length(M)))
+tips.ord=tips[order(tips[,1]),]
+node.order=as.numeric(tips.ord[,2])
+
+tips.RII.sp=cbind(node.order,RII.sp.mean)
+tips.RII.sp=tips.RII.sp[order(tips.RII.sp[,1]),]
+RII.sp.order=tips.RII.sp[,2]
+
+K.test=phylosignal(RII.sp.order,tree.di)
+
+brownFit=fitContinuous(tree.di,RII.sp.order)
+deltaFit=fitContinuous(tree.di,RII.sp.order,model="delta")
+d.delta=deltaFit$Trait1$lnl-brownFit$Trait1$lnl
+p.delta=pchisq(d.delta, 1, lower.tail=FALSE)
+
+
+***response traitgram of example community 46***
+C=read.csv(file="traitgram_example.csv",sep=",",head=TRUE)
+M=C[c(-1:-4)]
+cat=C[c(1:4)]
+M=as.data.frame(M)
+M[is.na(M)]=0
+M=M[,!(colSums(abs(M))==0)]
+M.restr=M[,!(colSums(abs(M))<10)]
+tree.eg=prune.sample(M,A) #prunes the master tree to just those species in the community dataset
+n.eg=max(cat$sample)
+
+tree.eg.di=multi2di(tree.eg,random=TRUE)
+
+RII.eg=vector()
+for (q in M){
+cush=subset(q,cat$cushion.open=="cushion")
+open=subset(q,cat$cushion.open=="open")
+h.score=(sum(cush)-sum(open))/sum(cush,open)
+RII.eg=cbind(RII.eg,h.score)
+}
+colnames(RII.eg)=colnames(M)
+RII.eg.mean=mean(RII.eg,na.rm=T)
+RII.eg.se=sd(t(RII.eg))/sqrt(n.eg)
+RII.eg.median=median(RII.eg)
+
+tips.eg=cbind(tree.eg$tip.label,c(1:length(M)))
+tips.eg.ord=tips.eg[order(tips.eg[,1]),]
+node.eg.order=as.numeric(tips.eg.ord[,2])
+RII.eg.to.ord=cbind(t(RII.eg),rownames(t(RII.eg)))
+RII.eg.ord=RII.eg.to.ord[order(RII.eg.to.ord[,2]),]
+RII.eg.order=as.numeric(RII.eg.ord[,1])
+
+tips.RII.eg=cbind(node.eg.order,RII.eg.order)
+tips.RII.eg=tips.RII.eg[order(tips.RII.eg[,1]),]
+trait.eg=tips.RII.eg[,2]
+
+traitgram(RII.eg.order,tree.eg.di,show.names=FALSE,method=c("pic"))

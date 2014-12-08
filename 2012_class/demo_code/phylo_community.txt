@@ -1,0 +1,43 @@
+setwd("C:/Users/Brad/Documents/Teaching/Fall_2011/Code/")
+
+library(ape)
+
+phylo.master=read.tree("all_taxa_bladj.tre") #reads in master phylogeny of from across all sites
+plot(phylo.master)
+
+C=read.csv(file="cushions_Elqui.csv",sep=",",head=TRUE)
+comm=C[c(-1:-4)]
+comm=as.data.frame(comm)
+comm[is.na(comm)]=0
+comm=comm[,!(colSums(abs(comm))==0)]
+
+habitat=C[c(3:4)]
+n=max(habitat$sample)
+
+
+
+library(picante)
+
+local.tree=prune.sample(comm,phylo.master) #prunes the master tree to just those species in the community dataset
+plot(local.tree)
+
+d=cophenetic.phylo(local.tree) #calculates phylogenetic distances between each pair of species within the community
+
+### calculating net relatedness index (NRI)
+mpd=ses.mpd(comm,d,null.model=c("independentswap"),abundance.weighted=TRUE) #observed mean phylogenetic distance (MPD) relative to null distribution; see help menu for all output if desired
+nri.z.all.mean=-1*mean(mpd$mpd.obs.z,na.rm=T) #mean standardized effect size of NRI relative to null distribution for all plots combined
+nri.all.error=qnorm(0.975)*sd(mpd$mpd.obs.z,na.rm=T)/sqrt(n) #SE of NRI
+
+nri.z.cushion.mean=-1*mean(subset(mpd$mpd.obs.z,habitat$cushion.open=="cushion"),na.rm=T) #mean NRI for cushions
+nri.cushion.error=qnorm(0.975)*sd(subset(mpd$mpd.obs.z,habitat$cushion.open=="cushion"),na.rm=T)/sqrt(n)
+
+nri.z.open.mean=-1*mean(subset(mpd$mpd.obs.z,habitat$cushion.open=="open"),na.rm=T) #mean NRI for open
+nri.open.error=qnorm(0.975)*sd(subset(mpd$mpd.obs.z,habitat$cushion.open=="open"),na.rm=T)/sqrt(n)
+
+
+
+library(gplots)
+
+mean.nris=c(nri.z.all.mean,nri.z.cushion.mean,nri.z.open.mean)
+errors=c(nri.all.error,nri.cushion.error,nri.open.error)
+plotCI(c(1,2,3),mean.nris,errors,errors)
